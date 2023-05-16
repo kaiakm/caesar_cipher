@@ -1,17 +1,12 @@
 def caesar_cipher(string, shift)
-    result = ""
-
-    string.each_char do |letter|
-        if letter.match(/[a-z]/i)
-            base = letter.match(/[a-z]/) ? "a" : "A"
-            shifted_letter = ((letter.ord - base.ord + shift) % 26 + base.ord).chr
-            result += shifted_letter
+    string.chars.map do |char|
+        if char =~ /[a-zA-z]/
+            ascii_offset = char.downcase == char ? 97 : 65
+            (((char.ord - ascii_offset + shift) % 26) + ascii_offset).chr
         else
-            result += char
+            char
         end
-    end
-
-    puts result
+    end.join
 end
 
-caesar_cipher("KAIA", 3)
+puts caesar_cipher("Yay, you did it!", 5)
